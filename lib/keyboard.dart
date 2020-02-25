@@ -6,7 +6,6 @@ class KeyboardUIConfig {
   final double digitSize;
   final double digitBorderWidth;
   final TextStyle digitTextStyle;
-  final TextStyle deleteButtonTextStyle;
   final Color primaryColor;
   final Color digitFillColor;
   final EdgeInsetsGeometry keyboardRowMargin;
@@ -21,8 +20,6 @@ class KeyboardUIConfig {
     this.digitTextStyle = const TextStyle(fontSize: 30, color: Colors.white),
     this.deleteButtonMargin =
         const EdgeInsets.only(right: 25, left: 20, top: 15),
-    this.deleteButtonTextStyle =
-        const TextStyle(fontSize: 16, color: Colors.white),
   });
 }
 
@@ -31,8 +28,8 @@ class Keyboard extends StatelessWidget {
   final GestureTapCallback onDeleteCancelTap;
   final KeyboardTapCallback onKeyboardTap;
   final bool shouldShowCancel;
-  final String cancelLocalizedText;
-  final String deleteLocalizedText;
+  final Widget cancelWidget;
+  final Widget deleteWidget;
 
   Keyboard(
       {Key key,
@@ -40,8 +37,8 @@ class Keyboard extends StatelessWidget {
       @required this.onDeleteCancelTap,
       @required this.onKeyboardTap,
       this.shouldShowCancel = true,
-      @required this.cancelLocalizedText,
-      @required this.deleteLocalizedText})
+      @required this.cancelWidget,
+      @required this.deleteWidget})
       : super(key: key);
 
   @override
@@ -135,10 +132,7 @@ class Keyboard extends StatelessWidget {
             splashColor: keyboardUIConfig.primaryColor.withOpacity(0.4),
             onTap: onDeleteCancelTap,
             child: Center(
-              child: Text(
-                shouldShowCancel ? cancelLocalizedText : deleteLocalizedText,
-                style: keyboardUIConfig.deleteButtonTextStyle,
-              ),
+              child: shouldShowCancel ? cancelWidget : deleteWidget,
             ),
           ),
         ),

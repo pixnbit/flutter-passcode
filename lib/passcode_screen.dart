@@ -20,8 +20,8 @@ class PasscodeScreen extends StatefulWidget {
   //isValidCallback will be invoked after passcode screen will pop.
   final IsValidCallback isValidCallback;
   final CancelCallback cancelCallback;
-  final String cancelLocalizedText;
-  final String deleteLocalizedText;
+  final Widget cancelWidget;
+  final Widget deleteWidget;
   final Stream<bool> shouldTriggerVerification;
   final Widget bottomWidget;
   final CircleUIConfig circleUIConfig;
@@ -32,8 +32,8 @@ class PasscodeScreen extends StatefulWidget {
     @required this.title,
     this.passwordDigits = 6,
     @required this.passwordEnteredCallback,
-    @required this.cancelLocalizedText,
-    @required this.deleteLocalizedText,
+    @required this.cancelWidget,
+    @required this.deleteWidget,
     @required this.shouldTriggerVerification,
     this.isValidCallback,
     this.circleUIConfig,
@@ -99,8 +99,8 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
                   onDeleteCancelTap: _onDeleteCancelButtonPressed,
                   onKeyboardTap: _onKeyboardButtonPressed,
                   shouldShowCancel: enteredPasscode.length == 0,
-                  cancelLocalizedText: widget.cancelLocalizedText,
-                  deleteLocalizedText: widget.deleteLocalizedText,
+                  cancelWidget: widget.cancelWidget,
+                  deleteWidget: widget.deleteWidget,
                   keyboardUIConfig: widget.keyboardUIConfig != null ? widget.keyboardUIConfig : KeyboardUIConfig(),
                 ),
               ),

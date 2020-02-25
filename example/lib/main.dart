@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
@@ -72,7 +73,8 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
                   borderColor: Colors.blue,
                   fillColor: Colors.blue,
                   circleSize: 30),
-              keyboardUIConfig: KeyboardUIConfig(digitBorderWidth: 2, primaryColor: Colors.blue));
+              keyboardUIConfig: KeyboardUIConfig(
+                  digitBorderWidth: 2, primaryColor: Colors.blue));
         },
       );
 
@@ -86,21 +88,28 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
           opaque: opaque,
           pageBuilder: (context, animation, secondaryAnimation) =>
               PasscodeScreen(
-                title: Text('Enter App Passcode',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 45
-                ),),
-                circleUIConfig: circleUIConfig,
-                keyboardUIConfig: keyboardUIConfig,
-                passwordEnteredCallback: _onPasscodeEntered,
-                cancelLocalizedText: 'Cancel',
-                deleteLocalizedText: 'Delete',
-                shouldTriggerVerification: _verificationNotifier.stream,
-                backgroundColor: Colors.black.withOpacity(0.8),
-                cancelCallback: _onPasscodeCancelled,
-              ),
+            title: Text(
+              'Enter App Passcode',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.green, fontSize: 45),
+            ),
+            circleUIConfig: circleUIConfig,
+            keyboardUIConfig: keyboardUIConfig,
+            passwordEnteredCallback: _onPasscodeEntered,
+            cancelWidget: Icon(
+              CupertinoIcons.clear,
+              color: Colors.white,
+              size: 60,
+            ),
+            deleteWidget: Icon(
+              Icons.backspace,
+              color: Colors.white,
+              size: 48,
+            ),
+            shouldTriggerVerification: _verificationNotifier.stream,
+            backgroundColor: Colors.black.withOpacity(0.8),
+            cancelCallback: _onPasscodeCancelled,
+          ),
         ));
   }
 
@@ -114,9 +123,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
     }
   }
 
-  _onPasscodeCancelled() {
-
-  }
+  _onPasscodeCancelled() {}
 
   @override
   void dispose() {
