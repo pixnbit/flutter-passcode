@@ -75,6 +75,7 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
       });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,8 +132,6 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
         enteredPasscode = enteredPasscode.substring(0, enteredPasscode.length - 1);
       });
     } else {
-      Navigator.maybePop(context);
-
       if (widget.cancelCallback != null) {
         widget.cancelCallback();
       }
@@ -162,6 +161,7 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
 
   @override
   dispose() {
+    controller.stop();
     controller.dispose();
     streamSubscription.cancel();
     super.dispose();
@@ -169,7 +169,7 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
 
   _showValidation(bool isValid) {
     if (isValid) {
-      Navigator.maybePop(context).then((pop) => _validationCallback());
+      _validationCallback();
     } else {
       controller.forward();
     }
